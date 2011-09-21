@@ -146,7 +146,7 @@ module CentralLogger
         @mongo_connection ||= Mongo::Connection.new(@db_configuration['host'],
                                                     @db_configuration['port'],
                                                     :auto_reconnect => true,
-                                                    :timeout => 5).db(@db_configuration['database'])
+                                                    :pool_timeout => 5).db(@db_configuration['database'])
 
         if @db_configuration['username'] && @db_configuration['password']
           # the driver stores credentials in case reconnection is required

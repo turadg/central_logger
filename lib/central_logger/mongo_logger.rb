@@ -18,15 +18,14 @@ module CentralLogger
 
     def initialize(options={})
       path = options[:path] || File.join(Rails.root, "log/#{Rails.env}.log")
-      level = options[:level] || DEBUG
+      @level = options[:level] || DEBUG
       internal_initialize
       if disable_file_logging?
-        @level = level
         @buffer        = {}
         @auto_flushing = 1
         @guard = Mutex.new
       else
-        super(path, level)
+        super(path, @level)
       end
     rescue => e
       # should use a config block for this
